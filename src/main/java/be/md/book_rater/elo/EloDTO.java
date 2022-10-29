@@ -1,6 +1,7 @@
 package be.md.book_rater.elo;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +17,6 @@ public class EloDTO {
     @NotNull
     private Long raterElos;
 
+    @PositiveOrZero
+    private int elo;
 }

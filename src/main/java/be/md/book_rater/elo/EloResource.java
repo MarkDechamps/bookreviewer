@@ -44,7 +44,7 @@ public class EloResource {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateElo(@PathVariable final Long id,
-            @RequestBody @Valid final EloDTO eloDTO) {
+        @RequestBody @Valid final EloDTO eloDTO) {
         eloService.update(id, eloDTO);
         return ResponseEntity.ok().build();
     }

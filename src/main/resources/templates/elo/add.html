@@ -16,6 +16,7 @@
             <form th:action="${#httpServletRequest.requestURI}" method="post">
                 <div th:replace="fragments/forms::inputRow(object='elo', field='origin', type='select')" />
                 <div th:replace="fragments/forms::inputRow(object='elo', field='raterElos', type='select')" />
+                <div th:replace="fragments/forms::inputRow(object='elo', field='elo')" />
                 <input type="submit" th:value="#{elo.add.headline}" class="inline-block text-white bg-blue-600 hover:bg-blue-700 focus:ring-blue-300  focus:ring-4 rounded px-5 py-2 mt-6" />
             </form>
         </div>

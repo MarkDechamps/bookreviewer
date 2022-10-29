@@ -22,16 +22,13 @@ public class EloService {
     }
 
     public List<EloDTO> findAll() {
-        return eloRepository.findAll(Sort.by("id"))
-                .stream()
-                .map(elo -> mapToDTO(elo, new EloDTO()))
-                .collect(Collectors.toList());
+        return eloRepository.findAll(Sort.by("id")).stream().map(elo -> mapToDTO(elo, new EloDTO()))
+            .collect(Collectors.toList());
     }
 
     public EloDTO get(final Long id) {
-        return eloRepository.findById(id)
-                .map(elo -> mapToDTO(elo, new EloDTO()))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return eloRepository.findById(id).map(elo -> mapToDTO(elo, new EloDTO()))
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     public Long create(final EloDTO eloDTO) {
@@ -42,7 +39,7 @@ public class EloService {
 
     public void update(final Long id, final EloDTO eloDTO) {
         final Elo elo = eloRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         mapToEntity(eloDTO, elo);
         eloRepository.save(elo);
     }
@@ -55,14 +52,17 @@ public class EloService {
         eloDTO.setId(elo.getId());
         eloDTO.setOrigin(elo.getOrigin());
         eloDTO.setRaterElos(elo.getRaterElos() == null ? null : elo.getRaterElos().getId());
+        eloDTO.setElo(elo.getElo());
         return eloDTO;
     }
 
     private Elo mapToEntity(final EloDTO eloDTO, final Elo elo) {
         elo.setOrigin(eloDTO.getOrigin());
-        final Rater raterElos = eloDTO.getRaterElos() == null ? null : raterRepository.findById(eloDTO.getRaterElos())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "raterElos not found"));
+        final Rater raterElos = eloDTO.getRaterElos() == null ? null
+            : raterRepository.findById(eloDTO.getRaterElos()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "raterElos not found"));
         elo.setRaterElos(raterElos);
+        elo.setElo(eloDTO.getElo());
         return elo;
     }
 
